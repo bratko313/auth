@@ -1,0 +1,37 @@
+doctype html
+html(lang="hr")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title Podaci o propusnici
+    body
+        h1 Digitalna propusnica
+
+        p
+            strong Identifikator:
+            |  #{pass.id}
+
+        p
+            strong Ime i prezime:
+            |  #{pass.name}
+
+        p
+            strong Dokument:
+            |  #{pass.document}
+
+        p
+            strong Vrijeme izdavanja:
+            |  #{pass.issuedAt.toISOString()}
+
+        p
+            strong Status:
+            |  #{pass.status}
+
+        if pass.status === 'ACTIVE'
+            p Propusnica je aktivna.
+        else
+            p Propusnica je poništena.
+
+        hr
+
+        a(href="/") Povratak na početnu stranicu

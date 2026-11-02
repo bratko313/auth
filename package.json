@@ -1,0 +1,31 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "shx rm -rf dist",
+    "copy-views": "shx cp -r src/views/ dist/",
+    "build": "npm run clean && tsc && npm run copy-views",
+    "start": "node dist/app.js",
+    "dev": "npm run build && npm start"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "express-openid-connect": "^3.4.0",
+    "jose": "^6.2.15",
+    "pg": "^8.0.0",
+    "pug": "^3.0.4",
+    "qrcode": "^1.5.0",
+    "uuid": "^14.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.0.0",
+    "@types/qrcode": "^1.5.0",
+    "shx": "^0.4.0",
+    "typescript": "^5.0.0"
+  }
+}

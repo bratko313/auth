@@ -1,0 +1,86 @@
+doctype html
+html(lang="hr")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title Upravljanje propusnicama
+        style.
+            body {
+                font-family: Arial, sans-serif;
+                margin: 30px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #eee;
+            }
+            button {
+                cursor: pointer;
+                margin: 3px;
+            }
+            .active {
+                color: green;
+                font-weight: bold;
+            }
+            .cancelled {
+                color: red;
+                font-weight: bold;
+            }
+
+    body
+        h1 Upravljanje digitalnim propusnicama
+
+        a(href="/") Početna stranica
+
+        hr
+
+        if passes.length === 0
+            p Nema izdanih propusnica.
+        else
+            table
+                thead
+                    tr
+                        th ID
+                        th Ime i prezime
+                        th Dokument
+                        th Vrijeme izdavanja
+                        th Status
+                        th Akcije
+
+                tbody
+                    each pass in passes
+                        tr
+                            td
+                                a(href='/info/' + pass.id)= pass.id
+
+                            td= pass.name
+                            td= pass.document
+                            td= pass.issuedAt.toISOString()
+
+                            td
+                                if pass.status === 'ACTIVE'
+                                    span.active ACTIVE
+                                else
+                                    span.cancelled CANCELLED
+
+                            td
+                                if pass.status === 'ACTIVE'
+                                    form(
+                                        method="post",
+                                        action='/admin/passes/' + pass.id + '/cancel'
+                                    )
+                                        button(type="submit") Poništi
+
+                                form(
+                                    method="post",
+                                    action='/admin/passes/' + pass.id + '/delete',
+                                    onsubmit="return confirm('Želite li izbrisati propusnicu?')"
+                                )
+                                    button(type="submit") Izbriši

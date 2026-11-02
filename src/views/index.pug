@@ -1,0 +1,63 @@
+
+doctype html
+html(lang="hr")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title Digitalne propusnice
+        style.
+            body {
+                font-family: Arial, sans-serif;
+                margin: 30px;
+            }
+            .stats {
+                display: flex;
+                gap: 20px;
+                margin: 20px 0;
+            }
+            .stat {
+                border: 1px solid #ccc;
+                padding: 20px;
+                min-width: 160px;
+            }
+            .number {
+                font-size: 32px;
+                font-weight: bold;
+            }
+            button {
+                cursor: pointer;
+                padding: 8px 15px;
+            }
+
+    body
+        h1 Sustav digitalnih propusnica
+
+        h2 Statistika
+
+        .stats
+            .stat
+                p Ukupno propusnica
+                .number= totalPasses
+
+            .stat
+                p Aktivne propusnice
+                .number= activePasses
+
+        hr
+
+        if username
+            p Prijavljeni korisnik: #{username}
+
+            p
+                a(href="/admin/passes") Upravljanje propusnicama
+
+            form(action="/logout", method="post")
+                button(type="submit") Odjava
+
+        else if authEnabled
+            p Niste prijavljeni.
+
+            a(href="/login") Prijava
+
+        else
+            p Auth0 prijava nije konfigurirana.
