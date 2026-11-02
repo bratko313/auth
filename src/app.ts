@@ -21,9 +21,17 @@ const { auth, requiresAuth } = oidc;
 
 const app = express();
 
+if (process.env.RENDER) {
+    app.set('trust proxy', 1);
+}
+
 const port = Number(process.env.PORT ?? 4080);
-const baseURL =
-    process.env.BASE_URL ?? `http://localhost:${port}`;
+
+const baseURL = (
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.BASE_URL ||
+    `http://localhost:${port}`
+).replace(/\/+$/, '');
 
 app.set(
     'views',

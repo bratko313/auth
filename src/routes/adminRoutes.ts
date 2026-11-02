@@ -20,7 +20,11 @@ router.use((req, res, next) => {
     }
 
     const origin = req.get('Origin');
-    const expectedOrigin = process.env.BASE_URL;
+    const expectedOrigin = new URL(
+        process.env.RENDER_EXTERNAL_URL ||
+        process.env.BASE_URL ||
+        'http://localhost:4080'
+    ).origin;
 
     if (!origin || !expectedOrigin || origin !== expectedOrigin) {
         res.sendStatus(403);
