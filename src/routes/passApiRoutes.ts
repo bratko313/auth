@@ -66,16 +66,19 @@ router.post(
                 return;
             }
 
+            const baseURL = (
+                process.env.RENDER_EXTERNAL_URL ||
+                process.env.BASE_URL
+            )?.replace(/\/+$/, '');
+
+            if (!baseURL) {
+                throw new Error('Public base URL is not configured');
+            }
+
             const pass = await createPass(
                 name.trim(),
                 document.trim()
             );
-
-            const baseURL = process.env.BASE_URL;
-
-            if (!baseURL) {
-                throw new Error('BASE_URL is not configured');
-            }
 
             const apiURL = new URL(
                 `/passes/${pass.id}`,
